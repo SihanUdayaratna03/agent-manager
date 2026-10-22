@@ -284,7 +284,8 @@ install_observability_plane() {
       --namespace openchoreo-observability-plane \
       --version "${OBSERVABILITY_LOGS_OPENSEARCH_VERSION}" \
       --set openSearchSetup.openSearchSecretName="opensearch-admin-credentials" \
-      --set adapter.openSearchSecretName="opensearch-admin-credentials"
+      --set adapter.openSearchSecretName="opensearch-admin-credentials" \
+      --set fluentBitCustomizations.clusterInstance="${CLUSTER_NAME}"
     echo "✅ OpenSearch based logs module installed"
 
     # Enable logs collection in the configured logs module.
@@ -303,7 +304,8 @@ install_observability_plane() {
       --version "${OBSERVABILITY_LOGS_OPENSEARCH_VERSION}" \
       --reuse-values \
       --set fluent-bit.enabled=true \
-      --set "fluent-bit.tolerations[0].operator=Exists"
+      --set "fluent-bit.tolerations[0].operator=Exists" \
+      --set "fluentBitCustomizations.clusterInstance=${CLUSTER_NAME}"
     echo "✅ OpenSearch Log collection enabled"
 
     echo "Enabling opensearch based tracing module..."
